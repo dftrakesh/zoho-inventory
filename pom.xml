@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
 
     <name>zoho-inventory</name>
-    <description>zoho-creator API using JDK 11</description>
-    <url>https://github.com/dftrakesh/zoho-creator</url>
+    <description>zoho-inventory API using JDK 11</description>
+    <url>https://github.com/dftrakesh/zoho-Iinventory</url>
 
     <licenses>
         <license>
