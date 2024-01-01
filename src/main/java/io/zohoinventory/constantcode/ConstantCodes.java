@@ -18,7 +18,7 @@ public interface ConstantCodes {
     String API_BASED_END_POINT = "https://www.zohoapis.in/inventory";
     String OAUTH_BASED_END_POINT = "https://accounts.zoho.in/oauth/v2/token";
 
-    int MAX_ATTEMPTS = 50;
-    int TIME_OUT_DURATION = 3000;
+    int MAX_ATTEMPTS = 30;
+    int TIME_OUT_DURATION = 60000;
     int TOO_MANY_REQUEST_EXCEPTION_CODE = 429;
 }
