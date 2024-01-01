@@ -13,7 +13,7 @@ import lombok.Data;
 public class AccessTokenResponse {
     private String scope;
     private String tokenType;
-    private Integer expiresIn;
     private String apiDomain;
+    private Integer expiresIn;
     private String accessToken;
 }

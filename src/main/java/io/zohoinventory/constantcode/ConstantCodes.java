@@ -1,18 +1,19 @@
 package io.zohoinventory.constantcode;
 
 public interface ConstantCodes {
-    String SLASH_CHARACTER = "/";
+
     String VERSION = "v1";
+    String SLASH_CHARACTER = "/";
     String ITEM_ENDPOINT = "items";
-    String CONTENT_VALUE = "application/json";
-    String AUTHORIZATION_HEADER = "Authorization";
-    String TOKEN_NAME = "Zoho-oauthtoken ";
-    String GRANT_TYPE = "grant_type";
-    String AUTHORIZATION_CODE = "authorization_code";
     String CLIENT_ID = "client_id";
+    String GRANT_TYPE = "grant_type";
+    String REDIRECT_URI = "redirect_uri";
     String CLIENT_SECRET = "client_secret";
     String REFRESH_TOKEN = "refresh_token";
-    String REDIRECT_URI = "redirect_uri";
+    String TOKEN_NAME = "Zoho-oauthtoken ";
+    String CONTENT_VALUE = "application/json";
+    String AUTHORIZATION_HEADER = "Authorization";
+    String AUTHORIZATION_CODE = "authorization_code";
 
     String API_BASED_END_POINT = "https://www.zohoapis.in/inventory";
     String OAUTH_BASED_END_POINT = "https://accounts.zoho.in/oauth/v2/token";

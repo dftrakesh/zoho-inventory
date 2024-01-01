@@ -23,8 +23,8 @@ import static io.zohoinventory.constantcode.ConstantCodes.*;
 public class ZohoInventorySdk {
 
     protected HttpClient client;
-    protected AccessCredentials accessCredential;
     private ObjectMapper objectMapper;
+    protected AccessCredentials accessCredential;
 
     @SneakyThrows
     public ZohoInventorySdk(AccessCredentials accessCredential) {
