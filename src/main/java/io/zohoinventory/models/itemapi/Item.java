@@ -2,44 +2,47 @@ package io.zohoinventory.models.itemapi;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Item {
     private String groupId;
     private String groupName;
-    private String item_id;
+    private String itemId;
     private String name;
     private String itemName;
     private String unit;
     private String status;
     private String source;
-    private boolean isComboProduct;
-    private boolean isLinkedWithZohocrm;
+    private Boolean isComboProduct;
+    private Boolean isLinkedWithZohocrm;
     private String zcrmProductId;
     private String description;
     private String brand;
     private String manufacturer;
-    private double rate;
+    private Double rate;
     private String taxId;
     private String taxName;
-    private double taxPercentage;
+    private Double taxPercentage;
     private String purchaseAccountId;
     private String purchaseAccountName;
     private String accountId;
     private String accountName;
     private String purchaseDescription;
-    private double purchaseRate;
+    private Double purchaseRate;
     private String itemType;
     private String productType;
-    private double stockOnHand;
-    private boolean hasAttachment;
-    private boolean isReturnable;
-    private double availableStock;
-    private double actualAvailableStock;
+    private Double stockOnHand;
+    private Boolean hasAttachment;
+    private Boolean isReturnable;
+    private Double availableStock;
+    private Double actualAvailableStock;
     private String attributeId1;
     private String attributeId2;
     private String attributeId3;
@@ -63,7 +66,7 @@ public class Item {
     private String ean;
     private String isbn;
     private String partNumber;
-    private double reorderLevel;
+    private Double reorderLevel;
     private String imageName;
     private String imageType;
     private String imageDocumentId;

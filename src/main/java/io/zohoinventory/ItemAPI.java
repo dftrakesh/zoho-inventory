@@ -58,7 +58,7 @@ public class ItemAPI extends ZohoInventorySdk{
         List<Item> data = new ArrayList<>();
 
         for (Item item : items.getItems()) {
-            if (item.getItem_id().equals(item_id)) {
+            if (item.getItemId().equals(item_id)) {
                 data.add(item);
                 items.setItems(data);
                 return items;
