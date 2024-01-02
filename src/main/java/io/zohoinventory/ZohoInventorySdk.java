@@ -3,8 +3,6 @@ package io.zohoinventory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.zohoinventory.models.authenticationapi.AccessCredentials;
 import io.zohoinventory.models.authenticationapi.AccessTokenResponse;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -102,7 +100,7 @@ public class ZohoInventorySdk {
                 builder.append("&");
             builder.append(keyValueParam);
         }
-        return URI.create(uri.getScheme() + "://" + uri.getAuthority() + uri.getPath() + "?" + builder);
+        return URI.create(uri + "?" + builder);
     }
 
     @SneakyThrows
