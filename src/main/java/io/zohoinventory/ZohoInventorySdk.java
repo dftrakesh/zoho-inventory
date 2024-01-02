@@ -28,6 +28,10 @@ public class ZohoInventorySdk {
         this.accessCredential = accessCredential;
     }
 
+    public URI baseUrl(String path) {
+        return URI.create(API_BASED_END_POINT + VERSION + path);
+    }
+
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -52,8 +56,7 @@ public class ZohoInventorySdk {
     }
 
     protected void refreshAccessToken() {
-        if(accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime()))
-        {
+        if (accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime())) {
             HashMap<String, String> params = new HashMap<>();
             params.put(GRANT_TYPE, AUTHORIZATION_CODE);
             params.put(CLIENT_ID, accessCredential.getClientId());
@@ -73,6 +76,7 @@ public class ZohoInventorySdk {
     }
 
     protected HttpRequest get(URI uri) {
+        refreshAccessToken();
         return HttpRequest.newBuilder(uri)
                 .GET()
                 .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
@@ -82,13 +86,9 @@ public class ZohoInventorySdk {
 
 
     protected URI addParameters(URI uri, HashMap<String, String> params) {
-        String query = uri.getQuery();
         StringBuilder builder = new StringBuilder();
-        if (query != null) {
-            builder.append(query);
-        }
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            String keyValueParam = entry.getKey() + "=" + entry.getValue();
+            String keyValueParam = String.format("%s=%s", entry.getKey(), entry.getValue());
             if (!builder.toString().isEmpty()) {
                 builder.append("&");
             }

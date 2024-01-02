@@ -10,10 +10,10 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
-    private static DateTimeFormatter dateFormatte = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ");
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ");
 
     @Override
     public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        return LocalDateTime.parse(jsonParser.getText(), dateFormatte);
+        return LocalDateTime.parse(jsonParser.getText(), dateFormat);
     }
 }
