@@ -2,9 +2,8 @@ package io.zohoinventory.constantcode;
 
 public interface ConstantCodes {
 
-    String VERSION = "v1";
-    String SLASH_CHARACTER = "/";
-    String ITEM_ENDPOINT = "items";
+    String VERSION = "v1/";
+    String ITEM_ENDPOINT = "items/";
     String CLIENT_ID = "client_id";
     String GRANT_TYPE = "grant_type";
     String REDIRECT_URI = "redirect_uri";
@@ -15,10 +14,10 @@ public interface ConstantCodes {
     String AUTHORIZATION_HEADER = "Authorization";
     String AUTHORIZATION_CODE = "authorization_code";
     String CONTENT_TYPE = "Content-Type";
-    String SALESORDER_ENDPOINT = "salesorders";
+    String SALESORDER_ENDPOINT = "salesorders/";
 
-    String API_BASED_END_POINT = "https://www.zohoapis.in/inventory";
-    String OAUTH_BASED_END_POINT = "https://accounts.zoho.in/oauth/v2/token";
+    String API_BASED_END_POINT = "https://www.zohoapis.in/inventory/";
+    String OAUTH_BASED_END_POINT = "https://accounts.zoho.in/oauth/v2/token/";
 
     int MAX_ATTEMPTS = 30;
     int TIME_OUT_DURATION = 60000;

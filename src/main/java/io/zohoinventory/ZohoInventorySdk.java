@@ -29,8 +29,7 @@ public class ZohoInventorySdk {
     }
 
     @SneakyThrows
-    protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass)
-    {
+    protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
                 .thenApplyAsync(HttpResponse::body)
@@ -52,8 +51,7 @@ public class ZohoInventorySdk {
         return CompletableFuture.completedFuture(resp);
     }
 
-    protected void refreshAccessToken()
-    {
+    protected void refreshAccessToken() {
         if(accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime()))
         {
             HashMap<String, String> params = new HashMap<>();
@@ -62,15 +60,12 @@ public class ZohoInventorySdk {
             params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
             params.put(REDIRECT_URI, accessCredential.getRedirectUri());
-
             URI uriBuilder = URI.create(OAUTH_BASED_END_POINT);
             addParameters(uriBuilder, params);
-
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                     .POST(HttpRequest.BodyPublishers.noBody())
                     .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                     .build();
-
             AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
             accessCredential.setExpiresInTime(LocalDateTime.now().plusSeconds(accessTokenResponse.getExpiresIn()));
@@ -90,14 +85,14 @@ public class ZohoInventorySdk {
     protected URI addParameters(URI uri, HashMap<String, String> params) {
         String query = uri.getQuery();
         StringBuilder builder = new StringBuilder();
-
-        if (query != null)
+        if (query != null) {
             builder.append(query);
-
+        }
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String keyValueParam = entry.getKey() + "=" + entry.getValue();
-            if (!builder.toString().isEmpty())
+            if (!builder.toString().isEmpty()) {
                 builder.append("&");
+            }
             builder.append(keyValueParam);
         }
         return URI.create(uri + "?" + builder);

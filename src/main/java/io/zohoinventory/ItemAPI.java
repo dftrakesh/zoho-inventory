@@ -16,16 +16,12 @@ public class ItemAPI extends ZohoInventorySdk{
         super(accessCredentials);
     }
 
-    public ItemsWrapper getItems(HashMap<String, String> params)
-    {
+    public ItemsWrapper getItems(HashMap<String, String> params) {
         refreshAccessToken();
-        URI uri = URI.create(API_BASED_END_POINT.concat(SLASH_CHARACTER)
+        URI uri = URI.create(API_BASED_END_POINT
                 .concat(VERSION)
-                .concat(SLASH_CHARACTER)
                 .concat(ITEM_ENDPOINT));
-
         uri = addParameters(uri, params);
-
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ItemsWrapper.class);
@@ -33,13 +29,11 @@ public class ItemAPI extends ZohoInventorySdk{
 
     public ItemWrapper getItemsById(HashMap<String, String> params, String item_id) {
         refreshAccessToken();
-        URI uri = URI.create(API_BASED_END_POINT + SLASH_CHARACTER +
-                VERSION + SLASH_CHARACTER +
-                ITEM_ENDPOINT + SLASH_CHARACTER +
+        URI uri = URI.create(API_BASED_END_POINT +
+                VERSION  +
+                ITEM_ENDPOINT +
                 item_id);
-
         uri = addParameters(uri, params);
-
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ItemWrapper.class);

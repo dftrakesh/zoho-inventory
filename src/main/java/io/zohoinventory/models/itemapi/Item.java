@@ -2,9 +2,14 @@ package io.zohoinventory.models.itemapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.zohoinventory.models.LocalDateTimeDeserializer;
+import io.zohoinventory.models.LocalDateTimeSerializer;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -32,7 +37,6 @@ public class Item {
     private String itemType;
     private String itemName;
     private String groupName;
-    private Date createdTime;
     private String imageName;
     private String imageType;
     private String accountId;
@@ -53,7 +57,6 @@ public class Item {
     private Double taxPercentage;
     private String zcrmProductId;
     private Boolean hasAttachment;
-    private Date lastModifiedTime;
     private String attributeName1;
     private String attributeName2;
     private String attributeName3;
@@ -77,4 +80,10 @@ public class Item {
     private String attributeOptionData2;
     private String attributeOptionData3;
     private Boolean isLinkedWithZohocrm;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime createdTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime lastModifiedTime;
 }

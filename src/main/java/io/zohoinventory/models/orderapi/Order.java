@@ -2,9 +2,14 @@ package io.zohoinventory.models.orderapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.zohoinventory.models.LocalDateTimeDeserializer;
+import io.zohoinventory.models.LocalDateTimeSerializer;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -36,8 +41,12 @@ public class Order {
     private Double total;
     private Double bcyTotal;
     private Double totalInvoicedAmount;
-    private Date createdTime;
-    private Date lastModifiedTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime createdTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime lastModifiedTime;
     private Boolean isEmailed;
     private Double quantity;
     private Double quantityInvoiced;
