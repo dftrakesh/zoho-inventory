@@ -16,9 +16,8 @@ public class OrderAPI extends ZohoInventorySdk {
 
     public OrdersWrapper getOrders(HashMap<String, String> params) {
         refreshAccessToken();
-        URI uri = URI.create(API_BASED_END_POINT +
-                VERSION +
-                SALESORDER_ENDPOINT);
+        String uriString = API_BASED_END_POINT + VERSION + SALESORDER_ENDPOINT;
+        URI uri = URI.create(uriString);
         uri = addParameters(uri, params);
         HttpRequest request = get(uri);
 

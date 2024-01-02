@@ -80,9 +80,11 @@ public class Item {
     private String attributeOptionData2;
     private String attributeOptionData3;
     private Boolean isLinkedWithZohocrm;
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdTime;
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime lastModifiedTime;
