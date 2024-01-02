@@ -6,27 +6,24 @@ import io.zohoinventory.models.authenticationapi.AccessTokenResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.SneakyThrows;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.utils.URIBuilder;
 
+import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static io.zohoinventory.constantcode.ConstantCodes.*;
 
-@AllArgsConstructor
-@Builder(toBuilder = true)
 public class ZohoInventorySdk {
 
     protected HttpClient client;
     private ObjectMapper objectMapper;
     protected AccessCredentials accessCredential;
 
-    @SneakyThrows
     public ZohoInventorySdk(AccessCredentials accessCredential) {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
@@ -57,7 +54,6 @@ public class ZohoInventorySdk {
         return CompletableFuture.completedFuture(resp);
     }
 
-    @SneakyThrows
     protected void refreshAccessToken()
     {
         if(accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime()))
@@ -69,12 +65,12 @@ public class ZohoInventorySdk {
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
             params.put(REDIRECT_URI, accessCredential.getRedirectUri());
 
-            URIBuilder uriBuilder = new URIBuilder(OAUTH_BASED_END_POINT);
+            URI uriBuilder = URI.create(OAUTH_BASED_END_POINT);
             addParameters(uriBuilder, params);
 
-            HttpRequest request = HttpRequest.newBuilder(uriBuilder.build())
+            HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                     .POST(HttpRequest.BodyPublishers.noBody())
-                    .header(HttpHeaders.CONTENT_TYPE, CONTENT_VALUE)
+                    .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                     .build();
 
             AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
@@ -84,14 +80,29 @@ public class ZohoInventorySdk {
         }
     }
 
-    @SneakyThrows
-    protected void addParameters(URIBuilder uriBuilder, HashMap<String, String> params) {
+    protected HttpRequest get(URI uri) {
+        return HttpRequest.newBuilder(uri)
+                .GET()
+                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+                .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
+                .build();
+    }
 
-        if (params == null || params.isEmpty()) return;
 
-        for (String key : params.keySet()) {
-            uriBuilder.addParameter(key, params.get(key));
+    protected URI addParameters(URI uri, HashMap<String, String> params) {
+        String query = uri.getQuery();
+        StringBuilder builder = new StringBuilder();
+
+        if (query != null)
+            builder.append(query);
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String keyValueParam = entry.getKey() + "=" + entry.getValue();
+            if (!builder.toString().isEmpty())
+                builder.append("&");
+            builder.append(keyValueParam);
         }
+        return URI.create(uri.getScheme() + "://" + uri.getAuthority() + uri.getPath() + "?" + builder);
     }
 
     @SneakyThrows
