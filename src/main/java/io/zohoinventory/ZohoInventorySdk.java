@@ -28,10 +28,6 @@ public class ZohoInventorySdk {
         this.accessCredential = accessCredential;
     }
 
-    public URI baseUrl(String path) {
-        return URI.create(API_BASED_END_POINT + VERSION + path);
-    }
-
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -100,5 +96,9 @@ public class ZohoInventorySdk {
     @SneakyThrows
     private <T> T convertBody(String body, Class<T> tClass) {
         return objectMapper.readValue(body, tClass);
+    }
+
+    public URI baseUrl(String path) {
+        return URI.create(API_BASED_END_POINT + VERSION + path);
     }
 }
