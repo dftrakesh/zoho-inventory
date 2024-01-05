@@ -1,14 +1,14 @@
-package io.github.dftrakesh;
+package io.github.dftrakesh.zoho.inventory;
 
-import io.github.dftrakesh.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.models.itemapi.ItemWrapper;
-import io.github.dftrakesh.models.itemapi.ItemsWrapper;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemsWrapper;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dftrakesh.constantcode.ConstantCodes.ITEM_ENDPOINT;
+import static io.github.dftrakesh.zoho.inventory.constantcode.ConstantCodes.ITEM_ENDPOINT;
 
 public class ItemAPI extends ZohoInventorySdk {
 

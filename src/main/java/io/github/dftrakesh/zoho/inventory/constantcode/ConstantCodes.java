@@ -1,4 +1,4 @@
-package io.github.dftrakesh.constantcode;
+package io.github.dftrakesh.zoho.inventory.constantcode;
 
 public interface ConstantCodes {
 

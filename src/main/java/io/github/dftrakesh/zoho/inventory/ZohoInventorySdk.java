@@ -1,8 +1,8 @@
-package io.github.dftrakesh;
+package io.github.dftrakesh.zoho.inventory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.dftrakesh.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.models.authenticationapi.AccessTokenResponse;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessTokenResponse;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.dftrakesh.constantcode.ConstantCodes.*;
+import static io.github.dftrakesh.zoho.inventory.constantcode.ConstantCodes.*;
 
 public class ZohoInventorySdk {
 
@@ -66,6 +66,7 @@ public class ZohoInventorySdk {
                     .POST(HttpRequest.BodyPublishers.noBody())
                     .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                     .build();
+            System.out.println(request);
             AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
             accessCredential.setExpiresInTime(LocalDateTime.now().plusSeconds(accessTokenResponse.getExpiresIn()));
@@ -101,6 +102,7 @@ public class ZohoInventorySdk {
 
     public URI baseUrl(String path) {
         String baseUrl = String.format(API_BASED_END_POINT, accessCredential.getTopLevelDomain());
+        System.out.println(baseUrl);
         return URI.create(baseUrl + VERSION + path);
     }
 }

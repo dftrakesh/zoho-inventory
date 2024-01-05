@@ -1,4 +1,4 @@
-package io.github.dftrakesh.models;
+package io.github.dftrakesh.zoho.inventory.models;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
