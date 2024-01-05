@@ -1,4 +1,4 @@
-package io.zohoinventory.models.authenticationapi;
+package io.github.dftrakesh.models.authenticationapi;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -18,4 +18,7 @@ public class AccessCredentials {
     private String clientSecret;
     private String refreshToken;
     private LocalDateTime expiresInTime;
+    private String apiUri;
+    private String oauthUri;
+    private String topLevelDomain;
 }

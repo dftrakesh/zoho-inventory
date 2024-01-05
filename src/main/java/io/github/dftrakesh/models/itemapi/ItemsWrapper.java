@@ -1,4 +1,4 @@
-package io.zohoinventory.models.itemapi;
+package io.github.dftrakesh.models.itemapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

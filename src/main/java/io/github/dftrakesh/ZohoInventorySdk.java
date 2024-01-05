@@ -1,8 +1,8 @@
-package io.zohoinventory;
+package io.github.dftrakesh;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.zohoinventory.models.authenticationapi.AccessCredentials;
-import io.zohoinventory.models.authenticationapi.AccessTokenResponse;
+import io.github.dftrakesh.models.authenticationapi.AccessCredentials;
+import io.github.dftrakesh.models.authenticationapi.AccessTokenResponse;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static io.zohoinventory.constantcode.ConstantCodes.*;
+import static io.github.dftrakesh.constantcode.ConstantCodes.*;
 
 public class ZohoInventorySdk {
 
@@ -59,7 +59,7 @@ public class ZohoInventorySdk {
             params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
             params.put(REDIRECT_URI, accessCredential.getRedirectUri());
-            URI uriBuilder = URI.create(OAUTH_BASED_END_POINT);
+            URI uriBuilder = URI.create(accessCredential.getOauthUri() + accessCredential.getTopLevelDomain() + OAUTH_BASED_END_POINT);
             addParameters(uriBuilder, params);
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                     .POST(HttpRequest.BodyPublishers.noBody())
@@ -99,6 +99,6 @@ public class ZohoInventorySdk {
     }
 
     public URI baseUrl(String path) {
-        return URI.create(API_BASED_END_POINT + VERSION + path);
+        return URI.create(accessCredential.getApiUri() + accessCredential.getTopLevelDomain() + API_BASED_END_POINT + VERSION + path);
     }
 }

@@ -1,16 +1,15 @@
-package io.zohoinventory.models.itemapi;
+package io.github.dftrakesh.models.itemapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.zohoinventory.models.LocalDateTimeDeserializer;
-import io.zohoinventory.models.LocalDateTimeSerializer;
+import io.github.dftrakesh.models.LocalDateTimeDeserializer;
+import io.github.dftrakesh.models.LocalDateTimeSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,4 +1,4 @@
-package io.zohoinventory.models;
+package io.github.dftrakesh.models;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

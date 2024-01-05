@@ -1,4 +1,4 @@
-package io.zohoinventory.models.authenticationapi;
+package io.github.dftrakesh.models.authenticationapi;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
