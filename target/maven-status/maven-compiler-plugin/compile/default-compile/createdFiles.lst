@@ -1,0 +1,10 @@
+io\github\dftrakesh\zoho\inventory\models\authenticationapi\AccessTokenResponse.class
+io\github\dftrakesh\zoho\inventory\models\itemapi\ItemsWrapper.class
+io\github\dftrakesh\zoho\inventory\ItemAPI.class
+io\github\dftrakesh\zoho\inventory\ZohoInventorySdk.class
+io\github\dftrakesh\zoho\inventory\constantcode\ConstantCodes.class
+io\github\dftrakesh\zoho\inventory\models\LocalDateTimeDeserializer.class
+io\github\dftrakesh\zoho\inventory\models\itemapi\ItemWrapper.class
+io\github\dftrakesh\zoho\inventory\models\itemapi\Item.class
+io\github\dftrakesh\zoho\inventory\models\authenticationapi\AccessCredentials.class
+io\github\dftrakesh\zoho\inventory\models\LocalDateTimeSerializer.class

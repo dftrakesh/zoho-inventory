@@ -17,6 +17,6 @@ public class AccessCredentials {
     private String redirectUri;
     private String clientSecret;
     private String refreshToken;
-    private LocalDateTime expiresInTime;
     private String topLevelDomain;
+    private LocalDateTime expiresInTime;
 }

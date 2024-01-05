@@ -52,20 +52,23 @@ public class ZohoInventorySdk {
     }
 
     protected void refreshAccessToken() {
+
         if (accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime())) {
-            String oauthUrl = String.format(OAUTH_BASED_END_POINT, accessCredential.getTopLevelDomain());
             HashMap<String, String> params = new HashMap<>();
             params.put(GRANT_TYPE, AUTHORIZATION_CODE);
             params.put(CLIENT_ID, accessCredential.getClientId());
             params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
             params.put(REDIRECT_URI, accessCredential.getRedirectUri());
+
+            String oauthUrl = String.format(OAUTH_BASED_END_POINT, accessCredential.getTopLevelDomain());
             URI uriBuilder = URI.create(oauthUrl);
             addParameters(uriBuilder, params);
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                     .POST(HttpRequest.BodyPublishers.noBody())
                     .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                     .build();
+
             AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
             accessCredential.setExpiresInTime(LocalDateTime.now().plusSeconds(accessTokenResponse.getExpiresIn()));
@@ -84,6 +87,7 @@ public class ZohoInventorySdk {
 
     protected URI addParameters(URI uri, HashMap<String, String> params) {
         StringBuilder builder = new StringBuilder();
+
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String keyValueParam = String.format("%s=%s", entry.getKey(), entry.getValue());
             if (!builder.toString().isEmpty()) {
