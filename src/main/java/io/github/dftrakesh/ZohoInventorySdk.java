@@ -52,6 +52,7 @@ public class ZohoInventorySdk {
     }
 
     protected void refreshAccessToken() {
+        String oauthUrl = String.format(OAUTH_BASED_END_POINT, accessCredential.getTopLevelDomain());
         if (accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime())) {
             HashMap<String, String> params = new HashMap<>();
             params.put(GRANT_TYPE, AUTHORIZATION_CODE);
@@ -59,7 +60,7 @@ public class ZohoInventorySdk {
             params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
             params.put(REDIRECT_URI, accessCredential.getRedirectUri());
-            URI uriBuilder = URI.create(accessCredential.getOauthUri() + accessCredential.getTopLevelDomain() + OAUTH_BASED_END_POINT);
+            URI uriBuilder = URI.create(oauthUrl);
             addParameters(uriBuilder, params);
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                     .POST(HttpRequest.BodyPublishers.noBody())
@@ -99,6 +100,7 @@ public class ZohoInventorySdk {
     }
 
     public URI baseUrl(String path) {
-        return URI.create(accessCredential.getApiUri() + accessCredential.getTopLevelDomain() + API_BASED_END_POINT + VERSION + path);
+        String baseUrl = String.format(API_BASED_END_POINT, accessCredential.getTopLevelDomain());
+        return URI.create(baseUrl + VERSION + path);
     }
 }

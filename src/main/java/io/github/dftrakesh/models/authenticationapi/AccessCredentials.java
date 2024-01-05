@@ -18,7 +18,5 @@ public class AccessCredentials {
     private String clientSecret;
     private String refreshToken;
     private LocalDateTime expiresInTime;
-    private String apiUri;
-    private String oauthUri;
     private String topLevelDomain;
 }

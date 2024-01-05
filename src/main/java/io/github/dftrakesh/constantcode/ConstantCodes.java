@@ -15,8 +15,8 @@ public interface ConstantCodes {
     String AUTHORIZATION_CODE = "authorization_code";
     String CONTENT_VALUE_APPLICATION_JSON = "application/json";
 
-    String API_BASED_END_POINT = "/inventory/";
-    String OAUTH_BASED_END_POINT = "/oauth/v2/token/";
+    String API_BASED_END_POINT = "https://www.zohoapis.%s/inventory/";
+    String OAUTH_BASED_END_POINT = "https://accounts.zoho.%s/oauth/v2/token/";
 
     int MAX_ATTEMPTS = 30;
     int TIME_OUT_DURATION = 60000;
