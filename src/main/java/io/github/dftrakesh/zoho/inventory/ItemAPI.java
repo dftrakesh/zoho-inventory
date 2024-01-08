@@ -1,14 +1,16 @@
 package io.github.dftrakesh.zoho.inventory;
 
 import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemWrapper;
-import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemsWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.getdata.ItemWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.getdata.ItemsWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.updatedata.UpdateRecordResponse;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
 import static io.github.dftrakesh.zoho.inventory.constantcode.ConstantCodes.ITEM_ENDPOINT;
+import static io.github.dftrakesh.zoho.inventory.constantcode.ConstantCodes.UPDATE_ITEM_ENDPOINT;
 
 public class ItemAPI extends ZohoInventorySdk {
 
@@ -30,5 +32,13 @@ public class ItemAPI extends ZohoInventorySdk {
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ItemWrapper.class);
+    }
+
+    public UpdateRecordResponse updateItem(HashMap<String, String> params, String updateRecordData) {
+        URI uri = baseUrl(UPDATE_ITEM_ENDPOINT);
+        uri = addParameters(uri, params);
+        HttpRequest request = post(uri, updateRecordData);
+
+        return getRequestWrapped(request, UpdateRecordResponse.class);
     }
 }
