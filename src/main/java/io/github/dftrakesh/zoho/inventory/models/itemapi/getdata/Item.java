@@ -1,4 +1,4 @@
-package io.github.dftrakesh.zoho.inventory.models.itemapi;
+package io.github.dftrakesh.zoho.inventory.models.itemapi.getdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

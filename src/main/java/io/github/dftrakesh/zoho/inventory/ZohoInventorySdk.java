@@ -83,11 +83,17 @@ public class ZohoInventorySdk {
             .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
             .build();
     }
-
+    
+    protected HttpRequest post(URI uri, String updateRecordData) {
+        return HttpRequest.newBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.ofString(updateRecordData))
+                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+                .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
+                .build();
+    }
 
     protected URI addParameters(URI uri, HashMap<String, String> params) {
         StringBuilder builder = new StringBuilder();
-
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String keyValueParam = String.format("%s=%s", entry.getKey(), entry.getValue());
             if (!builder.toString().isEmpty()) {

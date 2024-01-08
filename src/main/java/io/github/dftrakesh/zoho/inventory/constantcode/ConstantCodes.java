@@ -14,6 +14,8 @@ public interface ConstantCodes {
     String AUTHORIZATION_HEADER = "Authorization";
     String AUTHORIZATION_CODE = "authorization_code";
     String CONTENT_VALUE_APPLICATION_JSON = "application/json";
+    String SALESORDER_ENDPOINT = "salesorders";
+    String UPDATE_ITEM_ENDPOINT = "inventoryadjustments";
 
     String API_BASED_END_POINT = "https://www.zohoapis.%s/inventory/";
     String OAUTH_BASED_END_POINT = "https://accounts.zoho.%s/oauth/v2/token/";
