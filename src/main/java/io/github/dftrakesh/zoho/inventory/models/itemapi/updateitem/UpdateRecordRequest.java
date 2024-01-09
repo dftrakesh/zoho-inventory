@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class UpdateRecordData {
+public class UpdateRecordRequest {
     private String date;
     private String reason;
     private List<LineItem> lineItems;
