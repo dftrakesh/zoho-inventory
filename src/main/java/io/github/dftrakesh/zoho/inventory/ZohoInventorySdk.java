@@ -32,10 +32,10 @@ public class ZohoInventorySdk {
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
-                .thenApplyAsync(HttpResponse::body)
-                .thenApplyAsync(responseBody -> convertBody(responseBody, tclass))
-                .get();
+            .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
+            .thenApplyAsync(HttpResponse::body)
+            .thenApplyAsync(responseBody -> convertBody(responseBody, tclass))
+            .get();
     }
 
     @SneakyThrows
@@ -47,7 +47,7 @@ public class ZohoInventorySdk {
         if (resp.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS) {
             Thread.sleep(TIME_OUT_DURATION);
             return client.sendAsync(request, handler)
-                    .thenComposeAsync(response -> tryResend(client, request, handler, response, count + 1));
+                .thenComposeAsync(response -> tryResend(client, request, handler, response, count + 1));
         }
         return CompletableFuture.completedFuture(resp);
     }
@@ -66,9 +66,9 @@ public class ZohoInventorySdk {
             URI uriBuilder = URI.create(oauthUrl);
             addParameters(uriBuilder, params);
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
-                    .POST(HttpRequest.BodyPublishers.noBody())
-                    .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
-                    .build();
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+                .build();
 
             AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
@@ -79,19 +79,19 @@ public class ZohoInventorySdk {
     protected HttpRequest get(URI uri) {
         refreshAccessToken();
         return HttpRequest.newBuilder(uri)
-                .GET()
-                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
-                .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
-                .build();
+            .GET()
+            .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+            .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
+            .build();
     }
 
     protected HttpRequest post(URI uri, UpdateRecordRequest updateRecordData) {
         refreshAccessToken();
         return HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(toString(updateRecordData)))
-                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
-                .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
-                .build();
+            .POST(HttpRequest.BodyPublishers.ofString(toString(updateRecordData)))
+            .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+            .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
+            .build();
     }
 
     protected URI addParameters(URI uri, HashMap<String, String> params) {
