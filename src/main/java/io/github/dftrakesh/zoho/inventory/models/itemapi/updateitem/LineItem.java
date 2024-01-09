@@ -9,9 +9,9 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class LineItem {
+    private String name;
     private String itemId;
     private Integer itemOrder;
-    private String name;
     private Double quantityAdjusted;
     private Double quantityAdjustedFormatted;
 }

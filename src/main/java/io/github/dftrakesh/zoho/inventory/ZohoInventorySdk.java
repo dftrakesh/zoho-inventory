@@ -3,6 +3,7 @@ package io.github.dftrakesh.zoho.inventory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
 import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessTokenResponse;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordResponse;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -85,6 +86,7 @@ public class ZohoInventorySdk {
     }
 
     protected HttpRequest post(URI uri, String updateRecordData) {
+        refreshAccessToken();
         return HttpRequest.newBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(updateRecordData))
                 .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
@@ -107,6 +109,9 @@ public class ZohoInventorySdk {
 
     @SneakyThrows
     private <T> T convertBody(String body, Class<T> tClass) {
+        System.out.println(body);
+        UpdateRecordResponse updateRecordResponse = objectMapper.readValue(body, UpdateRecordResponse.class);
+        System.out.println("updateRecordResponse = " + updateRecordResponse);
         return objectMapper.readValue(body, tClass);
     }
 
