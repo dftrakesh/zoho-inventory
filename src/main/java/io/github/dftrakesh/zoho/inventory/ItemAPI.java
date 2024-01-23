@@ -1,8 +1,8 @@
 package io.github.dftrakesh.zoho.inventory;
 
 import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.zoho.inventory.models.itemapi.getitem.ItemWrapper;
-import io.github.dftrakesh.zoho.inventory.models.itemapi.getitem.ItemsWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemWrapper;
+import io.github.dftrakesh.zoho.inventory.models.itemapi.ItemsWrapper;
 import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordRequest;
 import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordWrapper;
 
