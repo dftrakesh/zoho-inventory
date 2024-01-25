@@ -6,6 +6,7 @@ import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventory
 import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordRequest;
 import lombok.SneakyThrows;
 
+import javax.lang.model.SourceVersion;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -31,6 +32,7 @@ public class ZohoInventorySdk {
 
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
+
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
             .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
             .thenApplyAsync(HttpResponse::body)
@@ -56,15 +58,15 @@ public class ZohoInventorySdk {
 
         if (accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime())) {
             HashMap<String, String> params = new HashMap<>();
-            params.put(GRANT_TYPE, AUTHORIZATION_CODE);
-            params.put(CLIENT_ID, accessCredential.getClientId());
-            params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
-            params.put(REDIRECT_URI, accessCredential.getRedirectUri());
+            params.put(CLIENT_ID,accessCredential.getClientId());
+            params.put(CLIENT_SECRET,accessCredential.getClientSecret());
+            params.put(GRANT_TYPE,AUTHORIZATION_CODE);
 
             String oauthUrl = String.format(OAUTH_BASED_END_POINT, accessCredential.getTopLevelDomain());
             URI uriBuilder = URI.create(oauthUrl);
-            addParameters(uriBuilder, params);
+            uriBuilder = addParameters(uriBuilder, params);
+
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)

@@ -21,7 +21,7 @@ public class ItemAPI extends ZohoInventorySdk {
 
     public ItemsWrapper getItems(HashMap<String, String> params) {
         URI uri = baseUrl(ITEM_ENDPOINT);
-        uri = addParameters(uri, params);
+        uri = addParameters(uri,params);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ItemsWrapper.class);
