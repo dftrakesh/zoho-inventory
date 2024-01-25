@@ -1,8 +1,8 @@
 package io.github.dftrakesh.zoho.inventory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessTokenResponse;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventoryAccessCredentials;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventoryAccessTokenResponse;
 import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordRequest;
 import lombok.SneakyThrows;
 
@@ -21,9 +21,9 @@ public class ZohoInventorySdk {
 
     protected HttpClient client;
     private final ObjectMapper objectMapper;
-    protected AccessCredentials accessCredential;
+    protected ZohoInventoryAccessCredentials accessCredential;
 
-    public ZohoInventorySdk(AccessCredentials accessCredential) {
+    public ZohoInventorySdk(ZohoInventoryAccessCredentials accessCredential) {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
         this.accessCredential = accessCredential;
@@ -70,7 +70,7 @@ public class ZohoInventorySdk {
                 .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                 .build();
 
-            AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
+            ZohoInventoryAccessTokenResponse accessTokenResponse = getRequestWrapped(request, ZohoInventoryAccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
             accessCredential.setExpiresInTime(LocalDateTime.now().plusSeconds(accessTokenResponse.getExpiresIn()));
         }
