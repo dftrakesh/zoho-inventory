@@ -1,11 +1,12 @@
 package io.github.dftrakesh.zoho.inventory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
-import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessTokenResponse;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventoryAccessCredentials;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventoryAccessTokenResponse;
 import io.github.dftrakesh.zoho.inventory.models.itemapi.updateitem.UpdateRecordRequest;
 import lombok.SneakyThrows;
 
+import javax.lang.model.SourceVersion;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -21,9 +22,9 @@ public class ZohoInventorySdk {
 
     protected HttpClient client;
     private final ObjectMapper objectMapper;
-    protected AccessCredentials accessCredential;
+    protected ZohoInventoryAccessCredentials accessCredential;
 
-    public ZohoInventorySdk(AccessCredentials accessCredential) {
+    public ZohoInventorySdk(ZohoInventoryAccessCredentials accessCredential) {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
         this.accessCredential = accessCredential;
@@ -31,6 +32,7 @@ public class ZohoInventorySdk {
 
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tclass) {
+
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
             .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
             .thenApplyAsync(HttpResponse::body)
@@ -56,21 +58,21 @@ public class ZohoInventorySdk {
 
         if (accessCredential.getAccessToken() == null || accessCredential.getExpiresInTime() == null || LocalDateTime.now().isAfter(accessCredential.getExpiresInTime())) {
             HashMap<String, String> params = new HashMap<>();
-            params.put(GRANT_TYPE, AUTHORIZATION_CODE);
-            params.put(CLIENT_ID, accessCredential.getClientId());
-            params.put(CLIENT_SECRET, accessCredential.getClientSecret());
             params.put(REFRESH_TOKEN, accessCredential.getRefreshToken());
-            params.put(REDIRECT_URI, accessCredential.getRedirectUri());
+            params.put(CLIENT_ID,accessCredential.getClientId());
+            params.put(CLIENT_SECRET,accessCredential.getClientSecret());
+            params.put(GRANT_TYPE,AUTHORIZATION_CODE);
 
             String oauthUrl = String.format(OAUTH_BASED_END_POINT, accessCredential.getTopLevelDomain());
             URI uriBuilder = URI.create(oauthUrl);
-            addParameters(uriBuilder, params);
+            uriBuilder = addParameters(uriBuilder, params);
+
             HttpRequest request = HttpRequest.newBuilder(uriBuilder)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                 .build();
 
-            AccessTokenResponse accessTokenResponse = getRequestWrapped(request, AccessTokenResponse.class);
+            ZohoInventoryAccessTokenResponse accessTokenResponse = getRequestWrapped(request, ZohoInventoryAccessTokenResponse.class);
             accessCredential.setAccessToken(accessTokenResponse.getAccessToken());
             accessCredential.setExpiresInTime(LocalDateTime.now().plusSeconds(accessTokenResponse.getExpiresIn()));
         }

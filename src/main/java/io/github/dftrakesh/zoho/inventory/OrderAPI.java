@@ -1,6 +1,6 @@
 package io.github.dftrakesh.zoho.inventory;
 
-import io.github.dftrakesh.zoho.inventory.models.authenticationapi.AccessCredentials;
+import io.github.dftrakesh.zoho.inventory.models.authenticationapi.ZohoInventoryAccessCredentials;
 import io.github.dftrakesh.zoho.inventory.models.orderapi.OrdersWrapper;
 
 import java.net.URI;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import static io.github.dftrakesh.zoho.inventory.constantcode.ConstantCodes.SALESORDER_ENDPOINT;
 
 public class OrderAPI extends ZohoInventorySdk {
-    public OrderAPI(AccessCredentials accessCredentials) {
+    public OrderAPI(ZohoInventoryAccessCredentials accessCredentials) {
         super(accessCredentials);
     }
 
