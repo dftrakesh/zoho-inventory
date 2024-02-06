@@ -96,9 +96,9 @@ public class ZohoInventorySdk {
             .build();
     }
     
-    protected HttpRequest postWithNoBody(URI uri) {
+    protected HttpRequest postWithOutBody(URI uri) {
         return HttpRequest.newBuilder(uri)
-                .header("Content-Type", "application/json")
+                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
     }

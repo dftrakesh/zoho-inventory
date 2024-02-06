@@ -18,7 +18,7 @@ public class ZohoAccessCredentialsAPI extends ZohoInventorySdk{
     public ZohoInventoryAccessTokenResponse getAccessCredentials(String topLevelDomain, HashMap<String, String> params) {
         URI uri = baseUrl(OAUTH_BASED_END_POINT, topLevelDomain);
         uri = addParameters(uri, params);
-        HttpRequest request = postWithNoBody(uri);
+        HttpRequest request = postWithOutBody(uri);
 
         return getRequestWrapped(request, ZohoInventoryAccessTokenResponse.class);
     }
