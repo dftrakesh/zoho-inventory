@@ -95,6 +95,13 @@ public class ZohoInventorySdk {
             .headers(AUTHORIZATION_HEADER, TOKEN_NAME.concat(accessCredential.getAccessToken()))
             .build();
     }
+    
+    protected HttpRequest postWithOutBody(URI uri) {
+        return HttpRequest.newBuilder(uri)
+                .header(CONTENT_TYPE, CONTENT_VALUE_APPLICATION_JSON)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+    }
 
     protected URI addParameters(URI uri, HashMap<String, String> params) {
         StringBuilder builder = new StringBuilder();
@@ -117,6 +124,11 @@ public class ZohoInventorySdk {
     public URI baseUrl(String path) {
         String baseUrl = String.format(API_BASED_END_POINT, accessCredential.getTopLevelDomain());
         return URI.create(baseUrl + VERSION + path);
+    }
+
+    protected URI baseUrl(String path, String topLevelDomain) {
+        String baseUrl = String.format(path, topLevelDomain);
+        return URI.create(baseUrl);
     }
 
     @SneakyThrows
